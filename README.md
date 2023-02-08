@@ -1,6 +1,6 @@
 # Task Manager
 
-This project is from  [NodeJS Tutorial and Projects Course](https://www.udemy.com/course/nodejs-tutorial-and-projects-course/) course, but it's done completely in TypeScript.
+This project is from  [NodeJS Tutorial and Projects Course](https://www.udemy.com/course/nodejs-tutorial-and-projects-course/) course, but it's done completely in TypeScript with dependency injection (TypeDi).
 
 ## Available Scripts
 
