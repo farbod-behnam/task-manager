@@ -12,7 +12,7 @@ export class Task {
     set isDone(value: boolean) {
 
         if (typeof value !== typeof this._isDone) {
-            throw new Error("[isDone] SET METHOD => only [" + typeof this._isDone + "] type is acceptable, but the type was:" + typeof value + " with value: " + value);
+            throw new Error("Task [isDone] SET METHOD => only [" + typeof this._isDone + "] type is acceptable, but the type was:" + typeof value + " with value: " + value);
         }
         this._isDone = value;
     }

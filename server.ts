@@ -6,8 +6,10 @@ import taskRouter from "./routes/tasks.routes";
 
 const server = express();
 
+// Middleware
 server.use(express.json());
 
+// Routes
 server.use("/api/v1/tasks", taskRouter);
 
 server.get("/hello", (req: Request, res: Response) => {
@@ -15,9 +17,12 @@ server.get("/hello", (req: Request, res: Response) => {
 })
 
 
+// 
 const port = 5000;
 
 server.listen(port, () => {
-    console.log("server is listening on port " + port + "....");
+    console.log("Server is listening on port " + port + "....");
+    console.log("==> http://localhost:" + port);
+    
 });
 
