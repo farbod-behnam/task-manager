@@ -5,6 +5,7 @@ import express, { Request, Response } from "express";
 import taskRouter from "./routes/tasks.routes";
 import { DatabaseConnection } from './db/DatabaseConnection';
 import dotenv from "dotenv";
+import Logging from './library/Logging';
 
 
 
@@ -37,11 +38,12 @@ const start = async () => {
         }
 
         await databaseConnection.connect(uri);
-        console.log("> Database connection established...");
+        Logging.info("> Database connection established...");
 
-        server.listen(port, () => console.log("> Server is listening on port " + port + "..."));
+
+        server.listen(port, () => Logging.info("> Server is listening on port " + port + "..."));
     } catch (error) {
-        console.log(error);
+        Logging.error(error);
     }
 }
 

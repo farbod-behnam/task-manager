@@ -1,15 +1,23 @@
 import { Request, Response } from "express";
 import { Service } from "typedi";
 
+import Task from "../models/task.model";
+
+
 @Service()
 export class TasksController {
 
-    getAllTasks(req: Request, res: Response) {
-        res.send("all items from the file")
+    async getAllTasks(req: Request, res: Response) {
+        res.send("get all tasks");
     }
 
-    createTask(req: Request, res: Response) {
-        res.json(req.body);
+    async createTask(req: Request, res: Response) {
+        const name = req.body.name;
+        const completed = req.body.completed;
+        const task = await Task.create(req.body);
+
+
+        res.status(201).json({task});
     }
 
     getTask(req: Request, res: Response) {
