@@ -12,14 +12,12 @@ import Logging from './library/Logging';
 const server = express();
 
 // Middleware
+server.use(express.static("./public"));
 server.use(express.json());
 
 // Routes
 server.use("/api/v1/tasks", taskRouter);
 
-server.get("/hello", (req: Request, res: Response) => {
-    res.send("Task Manager App");
-})
 
 
 // 

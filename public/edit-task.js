@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+
 const taskIDDOM = document.querySelector('.task-edit-id')
 const taskNameDOM = document.querySelector('.task-edit-name')
 const taskCompletedDOM = document.querySelector('.task-edit-completed')
@@ -11,7 +13,7 @@ let tempName
 const showTask = async () => {
   try {
     const {
-      data: { task },
+      data: { task }
     } = await axios.get(`/api/v1/tasks/${id}`)
     const { _id: taskID, completed, name } = task
 
@@ -36,10 +38,10 @@ editFormDOM.addEventListener('submit', async (e) => {
     const taskCompleted = taskCompletedDOM.checked
 
     const {
-      data: { task },
+      data: { task }
     } = await axios.patch(`/api/v1/tasks/${id}`, {
       name: taskName,
-      completed: taskCompleted,
+      completed: taskCompleted
     })
 
     const { _id: taskID, completed, name } = task
@@ -51,13 +53,13 @@ editFormDOM.addEventListener('submit', async (e) => {
       taskCompletedDOM.checked = true
     }
     formAlertDOM.style.display = 'block'
-    formAlertDOM.textContent = `success, edited task`
+    formAlertDOM.textContent = 'success, edited task'
     formAlertDOM.classList.add('text-success')
   } catch (error) {
     console.error(error)
     taskNameDOM.value = tempName
     formAlertDOM.style.display = 'block'
-    formAlertDOM.innerHTML = `error, please try again`
+    formAlertDOM.innerHTML = 'error, please try again'
   }
   editBtnDOM.textContent = 'Edit'
   setTimeout(() => {
