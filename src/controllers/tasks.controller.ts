@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Service } from "typedi";
+import Logging from "../library/Logging";
 
 import Task from "../models/task.model";
 
@@ -12,12 +13,18 @@ export class TasksController {
     }
 
     async createTask(req: Request, res: Response) {
-        const name = req.body.name;
-        const completed = req.body.completed;
-        const task = await Task.create(req.body);
+        try {
+            const name = req.body.name;
+            const completed = req.body.completed;
+            const task = await Task.create(req.body);
+    
+    
+            res.status(201).json({task});
+        } catch (error) {
+            Logging.error(error);
+            res.status(500).json({msg:error})
+        }
 
-
-        res.status(201).json({task});
     }
 
     getTask(req: Request, res: Response) {
