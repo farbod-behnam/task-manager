@@ -2,14 +2,20 @@ import { Request, Response } from "express";
 import { Service } from "typedi";
 import Logging from "../library/Logging";
 
-import Task from "../models/task.model";
+import Task, { ITask } from "../models/task.model";
 
 
 @Service()
 export class TasksController {
 
     async getAllTasks(req: Request, res: Response) {
-        res.send("get all tasks");
+        try {
+            const tasks = await Task.find({});
+            res.status(200).json({ tasks:tasks })
+        } catch (error) {
+            Logging.error(error);
+            res.status(500).json({msg:error})
+        }
     }
 
     async createTask(req: Request, res: Response) {
