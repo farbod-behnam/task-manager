@@ -6,6 +6,8 @@ import taskRouter from "./routes/tasks.routes";
 import { DatabaseConnection } from './db/DatabaseConnection';
 import dotenv from "dotenv";
 import Logging from './library/Logging';
+import notFound from './middleware/not-found';
+import errorHandler from './middleware/error-handler';
 
 
 
@@ -18,7 +20,8 @@ server.use(express.json());
 // Routes
 server.use("/api/v1/tasks", taskRouter);
 
-
+server.use("*", notFound);
+server.use(errorHandler);
 
 // 
 const port = 5000;

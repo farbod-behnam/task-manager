@@ -1,16 +1,17 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import Container from "typedi";
 import { TasksController } from "../controllers/tasks.controller";
+import asyncWrapperPrototype from "../middleware/async-wrapper";
 
 const tasksRouter = express.Router();
 
 const tasksController = Container.get(TasksController);
 
-tasksRouter.get("/", (req: Request, res: Response) => tasksController.getAllTasks(req, res));
-tasksRouter.post("/", (req: Request, res: Response) => tasksController.createTask(req, res));
-tasksRouter.get("/:id", (req: Request, res: Response) => tasksController.getTask(req, res));
-tasksRouter.patch("/:id", (req: Request, res: Response) => tasksController.updateTask(req, res));
-tasksRouter.delete("/:id", (req: Request, res: Response) => tasksController.deleteTask(req, res));
+tasksRouter.get("/", asyncWrapperPrototype((req: Request, res: Response) => tasksController.getAllTasks(req, res)));
+tasksRouter.post("/", asyncWrapperPrototype((req: Request, res: Response) => tasksController.createTask(req, res)));
+tasksRouter.get("/:id", asyncWrapperPrototype((req: Request, res: Response, next: NextFunction) => tasksController.getTask(req, res, next)));
+tasksRouter.patch("/:id", asyncWrapperPrototype((req: Request, res: Response, next: NextFunction) => tasksController.updateTask(req, res, next)));
+tasksRouter.delete("/:id", asyncWrapperPrototype((req: Request, res: Response) => tasksController.deleteTask(req, res)));
 
 
 
