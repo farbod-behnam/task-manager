@@ -1,4 +1,5 @@
-import mongoose, { Schema, Types } from "mongoose";
+import mongoose, { DocumentDefinition, Schema, Types } from "mongoose";
+import { Service } from "typedi";
 
 export interface ITask extends mongoose.Document {
     name: string,
@@ -18,6 +19,23 @@ const TaskSchema = new Schema<ITask>({
     }
 })
 
-export default mongoose.model<ITask>("Task", TaskSchema);
+const Task = mongoose.model<ITask>("Task", TaskSchema);
 
-// export default Task;
+// export default mongoose.model<ITask>("Task", TaskSchema);
+
+export interface TaskRepository<T> {
+    hi: (name: string) => string;
+    // create: (doc: T | DocumentDefinition<T>) => Promise<T>;
+}
+
+@Service()
+export class MongoTaskRepository implements TaskRepository<ITask> {
+    hi = (name: string): string => {
+        return "hello from MongoTaskRepository" + name;
+    }
+
+
+
+}
+
+export default Task;

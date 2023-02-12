@@ -1,18 +1,29 @@
 import { Request, Response } from "express";
-import { isValidObjectId } from "mongoose";
-import { Service } from "typedi";
+import { Inject, Service } from "typedi";
 import Logging from "../library/Logging";
 
-import Task, { ITask } from "../models/task.model";
+import Task, { ITask, MongoTaskRepository, TaskRepository } from "../models/task.model";
 
 
 @Service()
 export class TasksController {
 
+    @Inject(() => MongoTaskRepository)
+    private readonly taskRepository!: TaskRepository<ITask>;
+
+
+    constructor(taskRepository: TaskRepository<ITask>) {
+        this.taskRepository = taskRepository;
+    }
+
     async getAllTasks(req: Request, res: Response) {
+
         try {
+
             const tasks = await Task.find({});
             res.status(200).json({ tasks: tasks });
+            // res.status(200).json({ tasks: tasks, amount: tasks.length });
+
         } catch (error) {
             Logging.error(error);
             res.status(500).json({ msg: error });
