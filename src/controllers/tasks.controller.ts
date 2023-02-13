@@ -61,6 +61,7 @@ export class TasksController {
                 runValidators: true
             });
 
+
             if (task === null) {
                 const error = new CustomError(400, "bad request", "No task with id: " + taskId);
                 Logging.error(error);
