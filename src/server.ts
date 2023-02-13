@@ -24,7 +24,6 @@ server.use("*", notFound);
 server.use(errorHandler);
 
 // 
-const port = 5000;
 
 const databaseConnection = new DatabaseConnection();
 dotenv.config();
@@ -33,6 +32,7 @@ dotenv.config();
 const start = async () => {
     try {
         const uri = process.env.LOCAL_MONGO_URI;
+        const port = process.env.PORT || 5000;
 
         if (uri === undefined) {
             throw new Error("undefined environment parameter");
